@@ -6,12 +6,14 @@
     android:layout_height="match_parent"
     android:background="@drawable/ic_bg"
     android:orientation="vertical"
+    android:gravity="center"
     tools:context=".MainActivity">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Quizzy"
+        android:layout_marginBottom="30dp"
         android:textSize="25sp"
         android:textStyle="bold"
         android:gravity="center"
@@ -25,6 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
+            app:cardCornerRadius="8dp"
             android:background="@color/white">
 
             <LinearLayout
@@ -60,15 +63,35 @@
                 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_marginTop="15dp">
 
                     <androidx.appcompat.widget.AppCompatEditText
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:hint="John"
+                        android:inputType="textCapWords"
+                        android:textColor="#363A43"
+                        android:textColorHint="#7A8089"
+                        >
 
                     </androidx.appcompat.widget.AppCompatEditText>
 
                 </com.google.android.material.textfield.TextInputLayout>
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:background="@color/design_default_color_primary"
+                    android:text="Start"
+                    android:textSize="18sp"
+
+                    >
+
+                </Button>
 
 
             </LinearLayout>
