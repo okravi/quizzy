@@ -7,9 +7,10 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import com.example.quizzy.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
-    @RequiresApi(Build.VERSION_CODES.M)
+    /*@RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -24,5 +25,25 @@ class MainActivity : AppCompatActivity() {
             {true -> println(t1)}
 
         }
+    }*/
+
+    private lateinit var binding: ActivityMainBinding
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
+
+        val btn_start : Button = binding.btnStart
+        val et_name : EditText = binding.etName
+
+        binding.btnStart.setOnClickListener(){
+            if (binding.etName.text.isNotEmpty()){
+                Toast.makeText(this, "Please enter your name", Toast.LENGTH_LONG).show()
+            }
+        }
     }
+
+
 }

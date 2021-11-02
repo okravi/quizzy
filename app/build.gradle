@@ -4,6 +4,12 @@ plugins {
 }
 
 android {
+
+    buildFeatures {
+        viewBinding = true
+    }
+
+
     compileSdk 31
 
     defaultConfig {
