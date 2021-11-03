@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity() {
         val et_name : EditText = binding.etName
 
         binding.btnStart.setOnClickListener(){
-            if (binding.etName.text.isNotEmpty()){
+            if (binding.etName.text != null ){
                 Toast.makeText(this, "Please enter your name", Toast.LENGTH_LONG).show()
             }
         }
