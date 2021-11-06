@@ -3,13 +3,18 @@ package com.example.quizzy
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 import com.example.quizzy.databinding.ActivityMainBinding
 import com.example.quizzy.databinding.ActivityQuizQuestionsBinding
 
-class QuizQuestionsActivity : AppCompatActivity() {
+class QuizQuestionsActivity : AppCompatActivity(), View.OnClickListener {
+
+    private var mCurrentPosition: Int = 1
+    private var mQuestionsList: ArrayList<Question>? = null
+    private var mSelectedOptionPosition :Int = 0
 
     private var progressBar: ProgressBar? = null
     private var tvProgress: TextView? = null
@@ -38,18 +43,24 @@ class QuizQuestionsActivity : AppCompatActivity() {
         tvOptionThree = binding.tvOptionThree
         tvOptionFour = binding.tvOptionFour
 
+        mQuestionsList = Constants.getQuestions()
+
+        setQuestion()
 
 
-        val questionsList = Constants.getQuestions()
-        Log.i("QuestionsList size is ", "${questionsList.size}")
+    }
 
-        for(i in questionsList){
+    private fun setQuestion() {
+
+        /*Log.i("QuestionsList size is ", "${questionsList.size}")
+
+        for (i in questionsList) {
             Log.e("Questions", i.question)
 
-        }
+        }*/
 
         var currentPosition = 1
-        val question: Question = questionsList[currentPosition - 1]
+        val question: Question = mQuestionsList!![currentPosition - 1]
 
         ivImage?.setImageResource(question.image)
         progressBar?.progress = currentPosition
@@ -59,7 +70,9 @@ class QuizQuestionsActivity : AppCompatActivity() {
         tvOptionTwo?.text = question.optionTwo
         tvOptionThree?.text = question.optionThree
         tvOptionFour?.text = question.optionFour
+    }
 
-
+    override fun onClick(p0: View?) {
+        TODO("Not yet implemented")
     }
 }
