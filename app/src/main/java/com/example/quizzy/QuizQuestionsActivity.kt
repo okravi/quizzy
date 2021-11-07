@@ -1,12 +1,16 @@
 package com.example.quizzy
 
+import android.graphics.Color
+import android.graphics.Typeface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import com.example.quizzy.databinding.ActivityMainBinding
 import com.example.quizzy.databinding.ActivityQuizQuestionsBinding
 
@@ -25,6 +29,7 @@ class QuizQuestionsActivity : AppCompatActivity(), View.OnClickListener {
     private var tvOptionTwo: TextView? = null
     private var tvOptionThree: TextView? = null
     private var tvOptionFour: TextView? = null
+    private var btnSubmit: Button? = null
 
     private lateinit var binding: ActivityQuizQuestionsBinding
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,9 +48,11 @@ class QuizQuestionsActivity : AppCompatActivity(), View.OnClickListener {
         tvOptionThree = binding.tvOptionThree
         tvOptionFour = binding.tvOptionFour
 
+        btnSubmit = binding.btnSubmit
         mQuestionsList = Constants.getQuestions()
 
         setQuestion()
+        defaultOptionsView()
 
 
     }
@@ -59,17 +66,52 @@ class QuizQuestionsActivity : AppCompatActivity(), View.OnClickListener {
 
         }*/
 
-        var currentPosition = 1
-        val question: Question = mQuestionsList!![currentPosition - 1]
+
+        val question: Question = mQuestionsList!![mCurrentPosition - 1]
 
         ivImage?.setImageResource(question.image)
-        progressBar?.progress = currentPosition
-        tvProgress?.text = "$currentPosition/${progressBar?.max}"
+        progressBar?.progress = mCurrentPosition
+        tvProgress?.text = "$mCurrentPosition/${progressBar?.max}"
         tvQuestion?.text = question.question
         tvOptionOne?.text = question.optionOne
         tvOptionTwo?.text = question.optionTwo
         tvOptionThree?.text = question.optionThree
         tvOptionFour?.text = question.optionFour
+
+        if(mCurrentPosition == mQuestionsList!!.size){
+            btnSubmit?.text = "FINISH"
+        }else{
+            btnSubmit?.text = "SUBMIT"
+        }
+    }
+
+    private fun defaultOptionsView(){
+        val options = ArrayList<TextView>()
+        tvOptionOne?.let {
+            options.add(0, it)
+        }
+
+        tvOptionTwo?.let {
+            options.add(1, it)
+        }
+
+        tvOptionThree?.let {
+            options.add(2, it)
+        }
+
+        tvOptionFour?.let {
+            options.add(3, it)
+        }
+
+        for(option in options){
+            option.setTextColor(Color.parseColor("#7A8089"))
+            option.typeface = Typeface.DEFAULT
+            option.background = ContextCompat.getDrawable(
+                this,
+                R.drawable.default_option_border
+            )
+        }
+
     }
 
     override fun onClick(p0: View?) {
