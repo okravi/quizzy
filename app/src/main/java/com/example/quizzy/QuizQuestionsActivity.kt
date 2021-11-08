@@ -13,6 +13,7 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.example.quizzy.databinding.ActivityMainBinding
 import com.example.quizzy.databinding.ActivityQuizQuestionsBinding
+import org.w3c.dom.Text
 
 class QuizQuestionsActivity : AppCompatActivity(), View.OnClickListener {
 
@@ -49,6 +50,13 @@ class QuizQuestionsActivity : AppCompatActivity(), View.OnClickListener {
         tvOptionFour = binding.tvOptionFour
 
         btnSubmit = binding.btnSubmit
+
+        tvOptionOne?.setOnClickListener(this)
+        tvOptionTwo?.setOnClickListener(this)
+        tvOptionThree?.setOnClickListener(this)
+        tvOptionFour?.setOnClickListener(this)
+
+
         mQuestionsList = Constants.getQuestions()
 
         setQuestion()
@@ -114,7 +122,45 @@ class QuizQuestionsActivity : AppCompatActivity(), View.OnClickListener {
 
     }
 
-    override fun onClick(p0: View?) {
-        TODO("Not yet implemented")
+    private fun selectedOptionView(tv: TextView, selectedOptionNum: Int) {
+        defaultOptionsView()
+
+        mSelectedOptionPosition = selectedOptionNum
+
+        tv.setTextColor(Color.parseColor("#363A43"))
+        tv.setTypeface(tv.typeface, Typeface.BOLD)
+        tv.background = ContextCompat.getDrawable(
+            this,
+            R.drawable.selected_option_border_bg
+        )
+    }
+
+    override fun onClick(view: View?) {
+        when(view?.id){
+            R.id.tv_option_one -> {
+                tvOptionOne?.let{
+                    selectedOptionView(it, 1)
+                }
+            }
+
+            R.id.tv_option_two -> {
+                tvOptionTwo?.let{
+                    selectedOptionView(it, 2)
+                }
+            }
+
+            R.id.tv_option_three -> {
+                tvOptionThree?.let{
+                    selectedOptionView(it, 3)
+                }
+            }
+
+            R.id.tv_option_four -> {
+                tvOptionFour?.let{
+                    selectedOptionView(it, 4)
+                }
+            }
+
+        }
     }
 }
