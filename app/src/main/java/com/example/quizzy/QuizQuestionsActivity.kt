@@ -55,7 +55,7 @@ class QuizQuestionsActivity : AppCompatActivity(), View.OnClickListener {
         tvOptionTwo?.setOnClickListener(this)
         tvOptionThree?.setOnClickListener(this)
         tvOptionFour?.setOnClickListener(this)
-
+        btnSubmit?.setOnClickListener(this)
 
         mQuestionsList = Constants.getQuestions()
 
@@ -95,6 +95,9 @@ class QuizQuestionsActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun defaultOptionsView(){
         val options = ArrayList<TextView>()
+
+        //tvOptionOne.setTextColor("#7A8089")
+
         tvOptionOne?.let {
             options.add(0, it)
         }
@@ -160,7 +163,9 @@ class QuizQuestionsActivity : AppCompatActivity(), View.OnClickListener {
                     selectedOptionView(it, 4)
                 }
             }
-
+            R.id.btn_submit ->{
+                //TODO "implement"
+            }
         }
     }
 }
