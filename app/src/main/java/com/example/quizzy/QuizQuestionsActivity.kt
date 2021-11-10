@@ -7,10 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.ProgressBar
-import android.widget.TextView
+import android.widget.*
 import androidx.core.content.ContextCompat
 import com.example.quizzy.databinding.ActivityMainBinding
 import com.example.quizzy.databinding.ActivityQuizQuestionsBinding
@@ -32,6 +29,7 @@ class QuizQuestionsActivity : AppCompatActivity(), View.OnClickListener {
     private var tvOptionThree: TextView? = null
     private var tvOptionFour: TextView? = null
     private var btnSubmit: Button? = null
+    private var anyOptionSelected: Boolean = false
 
     private lateinit var binding: ActivityQuizQuestionsBinding
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -75,8 +73,10 @@ class QuizQuestionsActivity : AppCompatActivity(), View.OnClickListener {
 
         }*/
 
-
+        defaultOptionsView()
         val question: Question = mQuestionsList!![mCurrentPosition - 1]
+
+        anyOptionSelected = false
 
         ivImage?.setImageResource(question.image)
         progressBar?.progress = mCurrentPosition
@@ -87,16 +87,17 @@ class QuizQuestionsActivity : AppCompatActivity(), View.OnClickListener {
         tvOptionThree?.text = question.optionThree
         tvOptionFour?.text = question.optionFour
 
-        if(mCurrentPosition == mQuestionsList!!.size){
+        if(mCurrentPosition == mQuestionsList!!.size) {
             btnSubmit?.text = "FINISH"
         }else{
             btnSubmit?.text = "SUBMIT"
         }
+          //testing
     }
 
     private fun defaultOptionsView(){
         val options = ArrayList<TextView>()
-
+        //answerView(1, 0)
         //tvOptionOne.setTextColor("#7A8089")
 
         tvOptionOne?.let {
@@ -144,34 +145,45 @@ class QuizQuestionsActivity : AppCompatActivity(), View.OnClickListener {
             R.id.tv_option_one -> {
                 tvOptionOne?.let{
                     selectedOptionView(it, 1)
+                    anyOptionSelected = true
                 }
             }
 
             R.id.tv_option_two -> {
                 tvOptionTwo?.let{
                     selectedOptionView(it, 2)
+                    anyOptionSelected = true
                 }
             }
 
             R.id.tv_option_three -> {
                 tvOptionThree?.let{
                     selectedOptionView(it, 3)
+                    anyOptionSelected = true
                 }
             }
 
             R.id.tv_option_four -> {
                 tvOptionFour?.let{
                     selectedOptionView(it, 4)
+                    anyOptionSelected = true
                 }
             }
             R.id.btn_submit ->{
-                //TODO "implement"
+
                 if(mSelectedOptionPosition == 0){
                     mCurrentPosition++
 
                     when{
-                        mCurrentPosition <=mQuestionsList!!.size -> {
+                        ((mCurrentPosition <=mQuestionsList!!.size) && anyOptionSelected) -> {
                             setQuestion()
+                        }
+
+                        (!anyOptionSelected) ->{
+                            Toast.makeText(this, "Select an option", Toast.LENGTH_SHORT).show()
+                        }
+                        else ->{
+                            Toast.makeText(this, "You made it to the end", Toast.LENGTH_SHORT).show()
                         }
                     }
                 }else{
@@ -180,6 +192,17 @@ class QuizQuestionsActivity : AppCompatActivity(), View.OnClickListener {
                         answerView(mSelectedOptionPosition, R.drawable.wrong_option_border)
                     }
                     answerView(question.correctAnswer, R.drawable.correct_option_border)
+
+                    if(mCurrentPosition == mQuestionsList!!.size){
+                        btnSubmit?.text = "FINISH"
+                    }else{
+                        btnSubmit?.text = "GO TO NEXT QUESTION"
+                    }
+
+                    mSelectedOptionPosition = 0
+
+                    //answerView(1, 0)
+
                 }
             }
         }
