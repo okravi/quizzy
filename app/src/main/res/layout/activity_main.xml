@@ -19,7 +19,6 @@
         android:gravity="center"
         android:textColor="@color/white"
 
-
          />
 
         <com.google.android.material.card.MaterialCardView
