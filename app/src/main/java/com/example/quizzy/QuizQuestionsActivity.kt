@@ -75,7 +75,8 @@ class QuizQuestionsActivity : AppCompatActivity(), View.OnClickListener {
         mQuestionsList = Constants.getQuestions()
 
         maxIntToUSE = mQuestionsList!!.size.minus(1)
-        questionsNumbersList = List(numQuestionsToAsk) { Random.nextInt(0, maxIntToUSE)}
+        //questionsNumbersList = List(numQuestionsToAsk) { Random.nextInt(0, maxIntToUSE)}
+        questionsNumbersList = (0..maxIntToUSE).shuffled().take(numQuestionsToAsk)
 
         setQuestion()
         defaultOptionsView()
