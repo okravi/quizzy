@@ -37,6 +37,10 @@ class QuizQuestionsActivity : AppCompatActivity(), View.OnClickListener {
     private var btnSubmit: Button? = null
     private var anyOptionSelected: Boolean = false
 
+    private var maxIntToUSE: Int = 0
+
+    private var questionsNumbersList : List<Int> = listOf()
+
     private lateinit var binding: ActivityQuizQuestionsBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -70,6 +74,9 @@ class QuizQuestionsActivity : AppCompatActivity(), View.OnClickListener {
 
         mQuestionsList = Constants.getQuestions()
 
+        maxIntToUSE = mQuestionsList!!.size.minus(1)
+        questionsNumbersList = List(numQuestionsToAsk) { Random.nextInt(0, maxIntToUSE)}
+
         setQuestion()
         defaultOptionsView()
 
@@ -77,8 +84,13 @@ class QuizQuestionsActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     //fun generateQuestionsNumbersList(): List<Int> {
+        //TODO
+        //private val questionsNumbersList = List(numQuestionsToAsk) {
 
-        private val questionsNumbersList = List(numQuestionsToAsk) { Random.nextInt(0, (mQuestionsList?.size?.minus(1)!!)) }
+                //maxIntToUSE?.let { it1 -> Random.nextInt(0, it1) }
+        //}
+
+
     //    return (questionsNumbersList)
     //}
 
@@ -93,7 +105,7 @@ class QuizQuestionsActivity : AppCompatActivity(), View.OnClickListener {
 
         defaultOptionsView()
         //val question: Question = mQuestionsList!![mCurrentPosition - 1]
-        val question: Question = mQuestionsList!![questionsNumbersList[ mCurrentPosition - 1]]
+        val question: Question = mQuestionsList!![ questionsNumbersList [ mCurrentPosition - 1]]
 
         anyOptionSelected = false
 
