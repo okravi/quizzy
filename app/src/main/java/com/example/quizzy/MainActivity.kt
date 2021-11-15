@@ -17,9 +17,6 @@ class MainActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-        //val btnStart : Button = binding.btnStart
-        //val et_name : EditText = binding.etName
-
         binding.btnStart.setOnClickListener(){
             if (binding.etName.text.isNullOrEmpty()){
                 Toast.makeText(this, "Name can not be empty", Toast.LENGTH_LONG).show()

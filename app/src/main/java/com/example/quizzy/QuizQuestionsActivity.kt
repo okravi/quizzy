@@ -61,9 +61,6 @@ class QuizQuestionsActivity : AppCompatActivity(), View.OnClickListener {
         tvOptionTwo = binding.tvOptionTwo
         tvOptionThree = binding.tvOptionThree
         tvOptionFour = binding.tvOptionFour
-
-
-
         btnSubmit = binding.btnSubmit
 
         tvOptionOne?.setOnClickListener(this)
@@ -75,37 +72,18 @@ class QuizQuestionsActivity : AppCompatActivity(), View.OnClickListener {
         mQuestionsList = Constants.getQuestions()
 
         maxIntToUSE = mQuestionsList!!.size.minus(1)
-        //questionsNumbersList = List(numQuestionsToAsk) { Random.nextInt(0, maxIntToUSE)}
         questionsNumbersList = (0..maxIntToUSE).shuffled().take(numQuestionsToAsk)
 
         setQuestion()
         defaultOptionsView()
 
-
     }
 
-    //fun generateQuestionsNumbersList(): List<Int> {
-        //TODO
-        //private val questionsNumbersList = List(numQuestionsToAsk) {
-
-                //maxIntToUSE?.let { it1 -> Random.nextInt(0, it1) }
-        //}
-
-
-    //    return (questionsNumbersList)
-    //}
 
     private fun setQuestion() {
 
-        /*Log.i("QuestionsList size is ", "${questionsList.size}")
-
-        for (i in questionsList) {
-            Log.e("Questions", i.question)
-
-        }*/
-
         defaultOptionsView()
-        //val question: Question = mQuestionsList!![mCurrentPosition - 1]
+
         val question: Question = mQuestionsList!![ questionsNumbersList [ mCurrentPosition - 1]]
 
         anyOptionSelected = false
@@ -124,13 +102,11 @@ class QuizQuestionsActivity : AppCompatActivity(), View.OnClickListener {
         }else{
             btnSubmit?.text = "SUBMIT"
         }
-          //testing
+
     }
 
     private fun defaultOptionsView(){
         val options = ArrayList<TextView>()
-        //answerView(1, 0)
-        //tvOptionOne.setTextColor("#7A8089")
 
         tvOptionOne?.let {
             options.add(0, it)
@@ -233,6 +209,7 @@ class QuizQuestionsActivity : AppCompatActivity(), View.OnClickListener {
                     }else{
                         mCorrectAnswers++
                     }
+
                     answerView(question.correctAnswer, R.drawable.correct_option_border)
 
                     if(mCurrentPosition == numQuestionsToAsk){
